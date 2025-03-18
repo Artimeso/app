@@ -1,0 +1,220 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>登录界面</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+    <canvas id="particles-canvas"></canvas>
+    <div class="animated-background">
+        <div class="wave wave1"></div>
+        <div class="wave wave2"></div>
+        <div class="wave wave3"></div>
+        <div class="wave wave4"></div>
+    </div>
+    <div class="container">
+        <div class="login-container">
+            <!-- 登录卡片 - 左上 -->
+            <div class="login-card">
+                <div class="login-header">
+                    <span class="brand-name">Cannabis Lab</span>
+                    <a href="#" class="signup-link">Sign up</a>
+                </div>
+                <h1>Log in</h1>
+                <div class="input-group">
+                    <div class="input-icon">
+                        <i class="fas fa-at"></i>
+                    </div>
+                    <input type="email" id="email" placeholder="e-mail address">
+                </div>
+                <div class="input-group">
+                    <div class="input-icon">
+                        <i class="fas fa-key"></i>
+                    </div>
+                    <input type="password" id="password" placeholder="password">
+                    <a href="#" class="forgot-btn">I forgot</a>
+                </div>
+                
+                <a href="#" class="social-btn">
+                    <i class="fab fa-facebook"></i> Facebook
+                </a>
+                
+                <button class="login-btn">
+                    <i class="fas fa-arrow-right"></i>
+                </button>
+                
+                <div class="notice-text">
+                    For use by adults only (18 years of age and older). Keep out of reach of children and pets. In case of accidental ingestion contact our hotline.
+                    <br><br>
+                    Please consume responsibly!
+                </div>
+            </div>
+            
+            <!-- 信息卡片 - 右侧 -->
+            <div class="info-card">
+                <div class="grand-opening">
+                    <h4>Grand opening</h4>
+                    <p>New store</p>
+                </div>
+                <div class="info-card-content">
+                    <p class="info-date">Thu</p>
+                    <p class="info-day">24th</p>
+                    
+                    <div class="info-details">
+                        <p>18 PM</p>
+                        <p>Kerkstraat 12B</p>
+                        <p>Amsterdam</p>
+                    </div>
+                </div>
+                
+                <div class="info-branding">
+                    <div class="info-logo">
+                        <i class="fas fa-sun"></i>
+                        <span>C.Lab</span>
+                    </div>
+                </div>
+                
+                <button class="join-btn">
+                    Join in <i class="fas fa-arrow-right"></i>
+                </button>
+                
+                <div class="orange-circle"></div>
+            </div>
+            
+            <!-- 底部新功能卡片 -->
+            <div class="feature-card">
+                <div>
+                    <h3>New in</h3>
+                    <p>C.Lab Joints</p>
+                </div>
+                <button class="discover-btn">Discover</button>
+            </div>
+        </div>
+    </div>
+    <script src="script.js"></script>
+    <script>
+        // 背景图片加载检查
+        document.addEventListener('DOMContentLoaded', function() {
+            function checkBackgroundImage() {
+                const testImg = new Image();
+                testImg.onload = function() {
+                    console.log('本地背景图片加载成功');
+                };
+                testImg.onerror = function() {
+                    console.log('本地背景图片加载失败，使用备用背景');
+                    document.body.style.backgroundImage = 'linear-gradient(135deg, #f5f0e6 0%, #eae0d5 100%)';
+                };
+                
+                // 直接尝试加载本地图片
+                testImg.src = 'pexels-googledeepmind-17485657.jpg';
+                
+                // 5秒后检查背景状态，如果仍然有问题则使用备用方案
+                setTimeout(() => {
+                    const computedStyle = getComputedStyle(document.body);
+                    if (computedStyle.backgroundImage.indexOf('pexels-googledeepmind') === -1 &&
+                        computedStyle.backgroundImage.indexOf('linear-gradient') === -1) {
+                        console.log('背景加载延迟，应用备用方案');
+                        document.body.style.backgroundImage = 'linear-gradient(135deg, #f5f0e6 0%, #eae0d5 100%)';
+                    }
+                }, 5000);
+            }
+            
+            checkBackgroundImage();
+        });
+
+        // 粒子背景效果
+        const canvas = document.getElementById('particles-canvas');
+        const ctx = canvas.getContext('2d');
+        let particles = [];
+        let particleCount = 100; // 默认粒子数量
+        
+        // 根据设备性能和屏幕大小调整粒子数量
+        function adjustParticleCountByDevice() {
+            const isMobile = window.innerWidth < 768;
+            const isLowPowerDevice = navigator.hardwareConcurrency && navigator.hardwareConcurrency <= 4;
+            
+            if (isMobile || isLowPowerDevice) {
+                particleCount = 40; // 移动设备或低性能设备减少粒子数量
+            } else {
+                particleCount = 80;
+            }
+        }
+        
+        function resizeCanvas() {
+            canvas.width = window.innerWidth;
+            canvas.height = window.innerHeight;
+            adjustParticleCountByDevice();
+        }
+        
+        class Particle {
+            constructor() {
+                this.x = Math.random() * canvas.width;
+                this.y = Math.random() * canvas.height;
+                this.size = Math.random() * 3 + 0.5; // 稍微增大粒子尺寸
+                this.speedX = Math.random() * 0.3 - 0.15; // 稍微增加移动速度
+                this.speedY = Math.random() * 0.3 - 0.15;
+                this.opacity = Math.random() * 0.2 + 0.1; // 增加不透明度
+                this.color = getParticleColor();
+            }
+            
+            update() {
+                this.x += this.speedX;
+                this.y += this.speedY;
+                
+                if (this.x > canvas.width) this.x = 0;
+                if (this.x < 0) this.x = canvas.width;
+                if (this.y > canvas.height) this.y = 0;
+                if (this.y < 0) this.y = canvas.height;
+            }
+            
+            draw() {
+                ctx.fillStyle = this.color;
+                ctx.beginPath();
+                ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
+                ctx.fill();
+            }
+        }
+        
+        // 生成柔和的颜色
+        function getParticleColor() {
+            const colors = [
+                `rgba(63, 81, 181, ${Math.random() * 0.1 + 0.05})`, // 蓝紫色
+                `rgba(33, 150, 243, ${Math.random() * 0.1 + 0.05})`, // 浅蓝色
+                `rgba(255, 149, 83, ${Math.random() * 0.1 + 0.05})`, // 橙色
+                `rgba(255, 255, 255, ${Math.random() * 0.1 + 0.05})` // 白色
+            ];
+            return colors[Math.floor(Math.random() * colors.length)];
+        }
+        
+        function initParticles() {
+            particles = [];
+            for (let i = 0; i < particleCount; i++) {
+                particles.push(new Particle());
+            }
+        }
+        
+        function animateParticles() {
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            
+            for (let i = 0; i < particles.length; i++) {
+                particles[i].update();
+                particles[i].draw();
+            }
+            
+            requestAnimationFrame(animateParticles);
+        }
+        
+        window.addEventListener('resize', () => {
+            resizeCanvas();
+            initParticles();
+        });
+        
+        resizeCanvas();
+        initParticles();
+        animateParticles();
+    </script>
+</body>
+</html> 

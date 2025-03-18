@@ -1,0 +1,591 @@
+/* 全局重置和基础样式 */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Segoe UI', 'PingFang SC', 'Microsoft YaHei', sans-serif;
+}
+
+html, body {
+    height: 100%;
+    width: 100%;
+    overflow-x: hidden; /* 防止水平滚动 */
+}
+
+body {
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    /* 使用本地图片作为主要背景 */
+    background-image: 
+        url('pexels-googledeepmind-17485657.jpg'),
+        /* 轻量级内联背景 - 使用Base64编码的简单背景图 - 约5KB */
+        url('data:image/jpeg;base64,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');
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    color: #2d2d2d;
+    overflow: hidden;
+}
+
+/* 调整遮罩层透明度，使背景图片更明显 */
+body::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(135deg, rgba(255, 255, 255, 0.15) 0%, rgba(243, 229, 215, 0.4) 100%);
+    z-index: 0;
+}
+
+/* 粒子Canvas背景 */
+#particles-canvas {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 1;
+    display: block;
+    opacity: 0.6;
+}
+
+/* 动态背景 */
+.animated-background {
+    position: fixed;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
+    z-index: 2;
+    overflow: hidden;
+    pointer-events: none;
+    background: none;
+}
+
+.wave {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 100px;
+    background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 320"><path fill="rgba(240, 240, 240, 0.1)" fill-opacity="1" d="M0,160L48,170.7C96,181,192,203,288,192C384,181,480,139,576,138.7C672,139,768,181,864,181.3C960,181,1056,139,1152,117.3C1248,96,1344,96,1392,96L1440,96L1440,320L1392,320C1344,320,1248,320,1152,320C1056,320,960,320,864,320C768,320,672,320,576,320C480,320,384,320,288,320C192,320,96,320,48,320L0,320Z"></path></svg>');
+    background-size: 1440px 100px;
+    animation: wave-animation 60s linear infinite;
+}
+
+.wave1 {
+    opacity: 0.4;
+    animation-delay: 0s;
+    bottom: 0;
+}
+
+.wave2 {
+    opacity: 0.3;
+    animation-delay: -15s;
+    bottom: 10px;
+    animation-duration: 50s;
+}
+
+.wave3 {
+    opacity: 0.2;
+    animation-delay: -5s;
+    bottom: 15px;
+    animation-duration: 45s;
+}
+
+.wave4 {
+    opacity: 0.1;
+    animation-delay: -12s;
+    bottom: 20px;
+    animation-duration: 40s;
+}
+
+@keyframes wave-animation {
+    0% {
+        background-position-x: 0;
+    }
+    100% {
+        background-position-x: 1440px;
+    }
+}
+
+/* 柔和光影效果 */
+.animated-background::before {
+    content: "";
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    background: radial-gradient(circle at center, transparent 0%, transparent 60%, rgba(239, 180, 100, 0.03) 100%);
+    animation: pulse 8s ease-in-out infinite alternate;
+}
+
+@keyframes pulse {
+    0% {
+        transform: scale(1);
+    }
+    100% {
+        transform: scale(1.05);
+    }
+}
+
+/* 添加轻微点状纹理 */
+.animated-background::after {
+    content: '';
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    background-image: 
+        radial-gradient(circle at 25% 30%, rgba(255, 149, 83, 0.15) 0.1%, transparent 0.5%),
+        radial-gradient(circle at 75% 70%, rgba(255, 149, 83, 0.1) 0.1%, transparent 0.3%),
+        radial-gradient(circle at 60% 20%, rgba(255, 149, 83, 0.12) 0.1%, transparent 0.5%),
+        radial-gradient(circle at 30% 65%, rgba(255, 149, 83, 0.15) 0.1%, transparent 0.3%),
+        radial-gradient(circle at 85% 40%, rgba(255, 149, 83, 0.12) 0.1%, transparent 0.4%),
+        radial-gradient(circle at 45% 85%, rgba(255, 149, 83, 0.1) 0.1%, transparent 0.3%),
+        radial-gradient(circle at 15% 50%, rgba(255, 149, 83, 0.15) 0.1%, transparent 0.4%),
+        radial-gradient(circle at 65% 90%, rgba(255, 149, 83, 0.12) 0.1%, transparent 0.3%);
+    animation: twinkle 10s ease-in-out infinite alternate;
+}
+
+@keyframes twinkle {
+    0%, 100% {
+        opacity: 0.4;
+    }
+    50% {
+        opacity: 0.7;
+    }
+}
+
+.container {
+    width: 100%;
+    max-width: 100%;
+    padding: 15px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+    z-index: 10;
+}
+
+/* 多卡片布局容器 */
+.login-container {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-template-rows: auto auto;
+    grid-gap: 15px;
+    max-width: 900px;
+    width: 90%;
+}
+
+/* 登录卡片样式 - 左上卡片 */
+.login-card {
+    background-color: rgba(255, 255, 255, 0.15);
+    backdrop-filter: blur(30px);
+    -webkit-backdrop-filter: blur(30px);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05);
+    border-radius: 26px;
+    overflow: hidden;
+    padding: 30px;
+    grid-column: 1;
+    grid-row: 1 / span 1;
+    display: flex;
+    flex-direction: column;
+    animation: fadeIn 0.8s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+    position: relative;
+}
+
+/* 信息卡片 - 右侧卡片 */
+.info-card {
+    background-color: rgba(250, 250, 250, 0.15);
+    backdrop-filter: blur(30px);
+    -webkit-backdrop-filter: blur(30px);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05);
+    border-radius: 26px;
+    overflow: hidden;
+    padding: 30px;
+    grid-column: 2;
+    grid-row: 1 / span 2;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    position: relative;
+    animation: fadeIn 0.8s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+    animation-delay: 0.1s;
+}
+
+/* 特性卡片 - 左下黑色卡片 */
+.feature-card {
+    background-color: #222;
+    color: white;
+    border-radius: 26px;
+    padding: 30px;
+    grid-column: 1;
+    grid-row: 2;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    animation: fadeIn 0.8s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+    animation-delay: 0.2s;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+}
+
+.feature-card h3 {
+    color: white;
+    font-size: 24px;
+    font-weight: 500;
+    margin: 0;
+}
+
+.feature-card p {
+    color: #aaa;
+    font-size: 16px;
+    margin: 5px 0 0 0;
+}
+
+.discover-btn {
+    background: transparent;
+    color: white;
+    border: none;
+    font-size: 16px;
+    font-weight: 500;
+    cursor: pointer;
+    padding: 0;
+}
+
+/* 设置右侧卡片的背景区域 */
+.info-card-content {
+    position: relative;
+    z-index: 2;
+    width: 50%;
+}
+
+/* 添加右上角标题样式 */
+.info-card .grand-opening {
+    position: absolute;
+    top: 30px;
+    right: 30px;
+    text-align: right;
+    z-index: 2;
+}
+
+.info-card .grand-opening h4 {
+    margin: 0;
+    font-size: 16px;
+    font-weight: 500;
+    color: #222;
+}
+
+.info-card .grand-opening p {
+    margin: 5px 0 0;
+    font-size: 14px;
+    color: #888;
+}
+
+/* 大圆形橙色装饰 */
+.orange-circle {
+    position: absolute;
+    width: 210px;
+    height: 210px;
+    background: #ff9553;
+    border-radius: 50%;
+    top: 50%;
+    right: 19%;
+    transform: translateY(-50%);
+    opacity: 1;
+    z-index: 0;
+}
+
+/* 添加白色渐变覆盖效果 */
+.info-card::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 60%;
+    height: 100%;
+    background: linear-gradient(90deg, rgba(255, 255, 255, 0.95) 0%, rgba(255, 255, 255, 0.75) 50%, rgba(255, 255, 255, 0.3) 90%, transparent 100%);
+    backdrop-filter: blur(15px);
+    -webkit-backdrop-filter: blur(15px);
+    z-index: 1;
+    border-radius: 26px 0 0 26px;
+}
+
+/* 信息卡片内容 */
+.info-date {
+    font-size: 72px;
+    font-weight: 500;
+    color: #222;
+    margin: 0;
+    line-height: 1;
+}
+
+.info-day {
+    font-size: 72px;
+    font-weight: 500;
+    color: #aaa;
+    margin: 0 0 40px 0;
+    line-height: 1;
+}
+
+.info-details {
+    margin-top: 100px;
+    font-size: 16px;
+    color: #555;
+    position: relative;
+    z-index: 2;
+}
+
+.info-details p {
+    margin: 5px 0;
+}
+
+.info-branding {
+    position: absolute;
+    bottom: 30px;
+    left: 0;
+    width: 100%;
+    z-index: 2;
+}
+
+.info-logo {
+    position: absolute;
+    left: 24%;
+    transform: translateX(-50%);
+    bottom: 18px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-size: 14px;
+    color: #666;
+}
+
+.info-logo i {
+    font-size: 20px;
+    color: #444;
+}
+
+.join-btn {
+    background-color: #222;
+    color: white;
+    border: none;
+    padding: 12px 20px;
+    border-radius: 30px;
+    font-size: 14px;
+    font-weight: 500;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    position: absolute;
+    right: 49px;
+    bottom: 38px;
+    z-index: 2;
+}
+
+.join-btn i {
+    font-size: 12px;
+}
+
+/* 修改登录卡片头部 */
+.login-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    margin-bottom: 35px;
+    text-align: left;
+}
+
+.brand-name {
+    color: #888;
+    font-size: 16px;
+    font-weight: 400;
+}
+
+.signup-link {
+    color: #222;
+    text-decoration: none;
+    font-size: 16px;
+    font-weight: 500;
+}
+
+.login-header h1 {
+    color: #222;
+    font-size: 28px;
+    font-weight: 500;
+    margin: 45px 0 40px;
+    letter-spacing: -0.5px;
+}
+
+/* 修改输入框样式 */
+.input-group {
+    margin-top: 20px; /* 增加上边距，调整输入框位置 */
+    position: relative;
+    margin-bottom: 15px;
+    display: flex;
+    align-items: center;
+    background-color: rgba(245, 245, 245, 0.6);
+    border-radius: 30px;
+    overflow: hidden;
+    transition: all 0.3s ease;
+    border: 1px solid rgba(255, 255, 255, 0.6);
+    height: 45px;
+    width: 100%;
+}
+
+.input-group:focus-within {
+    background-color: rgba(255, 255, 255, 0.8);
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
+}
+
+.input-icon {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0 15px;
+    color: #999;
+    opacity: 0.9;
+    min-width: 50px; /* 确保图标宽度一致 */
+}
+
+.input-group input {
+    flex: 1;
+    border: none;
+    outline: none;
+    padding: 15px 5px 15px 0;
+    background: transparent;
+    font-size: 14px;
+    color: #333;
+    font-weight: 500;
+    width: 100%;
+}
+
+.input-group input::placeholder {
+    color: #888;
+}
+
+.forgot-btn {
+    margin-left: auto;
+    padding-right: 15px;
+    font-size: 12px;
+    color: #888;
+    text-decoration: none;
+    white-space: nowrap;
+}
+
+/* 社交登录按钮 */
+.social-login {
+    margin-top: 15px;
+}
+
+.social-btn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 12px 15px;
+    background-color: rgba(245, 245, 245, 0.6);
+    border: 1px solid rgba(255, 255, 255, 0.6);
+    border-radius: 30px;
+    color: #333;
+    font-size: 14px;
+    font-weight: 500;
+    text-decoration: none;
+    transition: all 0.3s ease;
+    height: 45px;
+    margin-top: 20px;
+    text-align: center;
+    position: relative;
+}
+
+.social-btn i {
+    margin-right: 10px;
+    color: #3b5998;
+}
+
+.social-btn:hover {
+    background-color: rgba(255, 255, 255, 0.8);
+}
+
+/* 调整登录按钮 */
+.login-btn {
+    width: 45px;
+    height: 45px;
+    padding: 0;
+    border: none;
+    background: #222;
+    color: white;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    margin: 25px 0 20px;
+    position: absolute;
+    right: 31px;
+    bottom: -8px;
+}
+
+.login-btn i {
+    font-size: 18px;
+}
+
+.login-btn:hover {
+    transform: scale(1.05);
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+}
+
+/* 通知文本 */
+.notice-text {
+    font-size: 12px;
+    color: #888;
+    margin-top: 15px;
+    line-height: 1.5;
+}
+
+/* 响应式调整 */
+@media (max-width: 768px) {
+    .login-container {
+        grid-template-columns: 1fr;
+        grid-template-rows: auto auto auto;
+        width: 100%;
+        max-width: 400px;
+    }
+    
+    .login-card, .info-card, .feature-card {
+        grid-column: 1;
+    }
+    
+    .info-card {
+        grid-row: 2;
+    }
+    
+    .feature-card {
+        grid-row: 3;
+    }
+    
+    .orange-circle {
+        width: 80px;
+        height: 80px;
+        right: 20px;
+        bottom: 30px;
+    }
+}
+
+/* 添加淡入动画 */
+@keyframes fadeIn {
+    0% {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    100% {
+        opacity: 1;
+        transform: translateY(0);
+    }
+} 
